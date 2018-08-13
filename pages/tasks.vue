@@ -109,7 +109,7 @@ export default {
     }
   },
   async created() {
-    const res: any = await getTasks();
+    const res: any = await getTasks().catch(err => this.$router.push('/'));
     this.tasks = res.data.data;
   }
 };

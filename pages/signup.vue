@@ -19,7 +19,13 @@
           <label>Password Confirmation</label>
           <b-input v-model="passwordConfirmation" type="password" />
         </b-form-group>
-        <b-button variant="success" @click="signup">Signup</b-button>
+        <b-button variant="success"
+                  @click="signup"
+                  class="mr-2"
+        >
+          Signup
+        </b-button>
+        <router-link to="/">Login?</router-link>
       </b-card>
     </b-container>
   </section>

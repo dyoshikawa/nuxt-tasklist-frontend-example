@@ -2,7 +2,7 @@
   <section>
     <Header />
     <b-container>
-      <b-card>
+      <b-card title="Login">
         <b-form-group>
           <label>Email</label>
           <b-input v-model="email" />
@@ -19,6 +19,7 @@
         >
           Login
         </b-button>
+        <router-link to="/signup">Signup?</router-link>
       </b-card>
     </b-container>
   </section>
