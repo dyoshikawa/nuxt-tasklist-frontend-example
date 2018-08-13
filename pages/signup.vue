@@ -3,6 +3,12 @@
     <Header />
     <b-container>
       <b-card title="Signup">
+        <b-alert v-if="error"
+                 variant="danger"
+                 show
+        >
+          {{ error }}
+        </b-alert>
         <b-form-group>
           <label>Name</label>
           <b-input v-model="name" />
@@ -33,7 +39,6 @@
 
 <script lang="ts">
 import * as axiosBase from '~/plugins/axios';
-import { AxiosPromise } from 'axios';
 import Header from '~/components/Header.vue';
 
 const axios = axiosBase.getInstance();
@@ -47,17 +52,22 @@ export default {
       name: '',
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      error: ''
     };
   },
   methods: {
     signup: async function() {
-      const res: any = await axios.post('/auth/signup', {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.passwordConfirmation
-      });
+      const res: any = await axios
+        .post('/auth/signup', {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.passwordConfirmation
+        })
+        .catch(error => {
+          this.error = error.response.data.message;
+        });
       localStorage.setItem('jwt', res.data.access_token);
       this.$router.push('/tasks');
     }

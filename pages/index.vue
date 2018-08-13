@@ -3,6 +3,12 @@
     <Header />
     <b-container>
       <b-card title="Login">
+        <b-alert v-if="error"
+                 variant="danger"
+                 show
+        >
+          {{ error }}
+        </b-alert>
         <b-form-group>
           <label>Email</label>
           <b-input v-model="email" />
@@ -38,15 +44,21 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
   },
   methods: {
     login: async function() {
-      const res: any = await axios.post('/auth/login', {
-        email: this.email,
-        password: this.password
-      });
+      const res: any = await axios
+        .post('/auth/login', {
+          email: this.email,
+          password: this.password
+        })
+        .catch(error => {
+          this.error = error.response.data.error;
+          console.log(this.error);
+        });
       localStorage.setItem('jwt', res.data.access_token);
       this.$router.push('/tasks');
     }

@@ -5,6 +5,12 @@
       <b-card title="New Task"
               class="mb-3"
       >
+        <b-alert v-if="error"
+                 variant="danger"
+                 show
+        >
+          {{ error }}
+        </b-alert>
         <b-form-group>
           <b-input v-model="content" />
         </b-form-group>
@@ -60,7 +66,8 @@ export default {
   data() {
     return {
       tasks: [],
-      content: ''
+      content: '',
+      error: ''
     };
   },
   methods: {
@@ -72,15 +79,19 @@ export default {
       this.$router.push('/');
     },
     createTask: async function() {
-      await axios.post(
-        '/tasks',
-        { content: this.content },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      await axios
+        .post(
+          '/tasks',
+          { content: this.content },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('jwt')}`
+            }
           }
-        }
-      );
+        )
+        .catch(error => {
+          this.error = error.response.data.message;
+        });
       const res: any = await getTasks();
       this.tasks = res.data.data;
       this.content = '';
