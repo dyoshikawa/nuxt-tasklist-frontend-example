@@ -2,17 +2,24 @@
   <section>
     <Header />
     <b-container>
-      <b-card title="New Task" class="mb-3">
+      <b-card title="New Task"
+              class="mb-3"
+      >
         <b-form-group>
           <b-input v-model="content" />
         </b-form-group>
-        <b-button variant="primary" @click="createTask" class="mr-2">Create</b-button>
+        <b-button variant="primary"
+                  @click="createTask"
+                  class="mr-2"
+        >
+          Create
+        </b-button>
         <b-button @click="logout">Logout</b-button>
       </b-card>
       <div v-for="task in tasks" :key="task.id">
         <b-card class="mb-3">
           <b-form-group>
-            <b-input :value="task.content"></b-input>
+            <b-input v-model="task.content" />
           </b-form-group>
           <b-button variant="success"
                     class="mr-2"
@@ -79,7 +86,6 @@ export default {
       this.content = '';
     },
     updateTask: async function(id, content) {
-      console.log(this.tasks[0].content);
       await axios.put(
         `/tasks/${id}`,
         {

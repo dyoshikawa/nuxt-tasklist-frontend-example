@@ -9,9 +9,16 @@
         </b-form-group>
         <b-form-group>
           <label>Password</label>
-          <b-input v-model="password" type="password" />
+          <b-input v-model="password"
+                   type="password"
+          />
         </b-form-group>
-        <b-button variant="primary" class="mr-2" @click="login">Login</b-button>
+        <b-button variant="primary"
+                  class="mr-2"
+                  @click="login"
+        >
+          Login
+        </b-button>
       </b-card>
     </b-container>
   </section>
@@ -35,14 +42,10 @@ export default {
   },
   methods: {
     login: async function() {
-      console.log(this.email);
-      console.log(this.password);
       const res: any = await axios.post('/auth/login', {
         email: this.email,
         password: this.password
       });
-      console.log(res);
-      console.log(res.data.access_token);
       localStorage.setItem('jwt', res.data.access_token);
       this.$router.push('/tasks');
     }
