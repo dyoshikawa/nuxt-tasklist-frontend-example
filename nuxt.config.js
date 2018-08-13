@@ -23,7 +23,7 @@ module.exports = {
     baseUrl: process.env.BASE_URL || `http://${host}:${port}`
   },
   head: {
-    title: 'tt1',
+    title: 'Nuxt Task List Frontend Example',
     meta: [
       { charset: 'utf-8' },
       {

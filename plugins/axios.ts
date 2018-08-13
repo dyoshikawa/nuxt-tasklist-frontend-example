@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getInstance = () => {
   return axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'https://laravel-tasklist-api-example.herokuapp.com/api',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json'
